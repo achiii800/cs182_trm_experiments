@@ -510,8 +510,15 @@ class ADMMSolver(BaseInnerSolver):
             param_id = id(W)
             if self.warm_start and param_id in self._state_cache:
                 state = self._state_cache[param_id]
-                Z = state["Z"].clone()
-                U = state["U"].clone()
+                # Check shape compatibility before using cached state
+                # (id() can be reused across different parameters with different shapes)
+                if state["Z"].shape == G.shape:
+                    Z = state["Z"].clone()
+                    U = state["U"].clone()
+                else:
+                    # Shape mismatch - reinitialize for this parameter
+                    Z = torch.zeros_like(G)
+                    U = torch.zeros_like(G)
             else:
                 Z = torch.zeros_like(G)
                 U = torch.zeros_like(G)
