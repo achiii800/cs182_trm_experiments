@@ -1,0 +1,77 @@
+# TRM Router Experiments - Default Configuration
+
+# ===========================
+# Data Collection Settings
+# ===========================
+data_collection:
+  epochs: 30
+  batch_size: 128
+  record_every: 1
+  
+  model:
+    name: "small_cnn"
+    width_mult: 1.0
+  
+  optimizer:
+    lr: 0.1
+    momentum: 0.9
+    weight_decay: 5e-4
+    spectral_budget: 0.1
+
+# ===========================
+# TRM Router Architecture
+# ===========================
+trm_router:
+  size: "small"  # tiny, small, base
+  
+  # Architecture params (for 'base' or custom)
+  input_dim: 12
+  num_solvers: 5
+  num_lr_buckets: 3
+  action_dim: 64
+  latent_dim: 128
+  hidden_dim: 256
+  n_inner_steps: 4
+  n_cycles: 3
+  use_halting: false
+  dropout: 0.0
+
+# ===========================
+# TRM Router Training
+# ===========================
+training:
+  epochs: 100
+  batch_size: 64
+  lr: 1e-4
+  weight_decay: 0.1
+  train_split: 0.8
+  
+  use_deep_supervision: true
+  regression_weight: 0.0
+  use_ema: true
+  ema_decay: 0.999
+  
+  grad_clip: 1.0
+  seed: 42
+
+# ===========================
+# Solvers to Compare
+# ===========================
+solvers:
+  - spectral_clip
+  - dual_ascent
+  - quasi_newton
+  - frank_wolfe
+  - admm
+
+# ===========================
+# Experiment Defaults
+# ===========================
+experiment:
+  results_dir: "results"
+  log_interval: 10
+  save_checkpoints: true
+  
+  # Hardware
+  num_workers: 2
+  device: "auto"  # auto, cuda, cpu
