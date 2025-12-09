@@ -124,9 +124,9 @@ Training the TRM on 10K steps from 3-solver runs:
 
 | Metric | Value |
 |--------|-------|
-| Oracle Agreement | ~65-70% |
-| Expected Loss Δ vs Random | -15% |
-| Expected Loss Δ vs Always-ADMM | -5% |
+| Oracle Agreement | --- |
+| Expected Loss Δ vs Random | ---% |
+| Expected Loss Δ vs Always-ADMM | ---% |
 
 ### Online Routing (Preliminary)
 
